@@ -76,7 +76,7 @@ d3.csv("../StarterCode/assets/data/data.csv", function(err, stateData) {
     // Step 5: Create Circles
     // ==============================
     var circlesGroup = chartGroup.selectAll("circle").data(stateData).enter()
-    
+    var circ = circlesGroup
     .append("circle")
     .attr("cx", d => xLinearScale(d.age))
     .attr("cy", d => yLinearScale(d.income))
@@ -86,15 +86,13 @@ d3.csv("../StarterCode/assets/data/data.csv", function(err, stateData) {
 
     // Step 6: Create State names in the Circles
     // ==============================
-    chartGroup.selectAll("Text")
-    .data(stateData)
-    .enter()
-    .append("Text")
+    circlesGroup
+    .append("text")
     .attr("x", d => xLinearScale(d.age))
     .attr("y", d => yLinearScale(d.income))
-    .attr("stroke", "teal")
     .attr("fill", "black")
-    .text(d => d.abbr)*10
+    .attr("font-size", "7.5px")
+    .text(d => d.abbr)
     
     // circlesGroup
     // .append("Text")
@@ -120,11 +118,11 @@ d3.csv("../StarterCode/assets/data/data.csv", function(err, stateData) {
 
     // // Step 7: Create tooltip in the chart
     // // ==============================
-    chartGroup.call(toolTip);
+    circ.call(toolTip);
 
     // // Step 8: Create event listeners to display and hide the tooltip
     // // ==============================
-    circlesGroup.on("click", function(data) {
+    circ.on("click", function(data) {
       toolTip.show(data, this);
     })
       // onmouseout event
